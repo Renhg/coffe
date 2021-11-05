@@ -2,63 +2,37 @@ CREATE DATABASE ng_coffee_db;
 
 USE ng_coffee_db;
 
-CREATE TABLE drink(
+CREATE TABLE FD(
     id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    type_id INT(11) NOT NULL,
     name VARCHAR(30),
     description VARCHAR(255),
-    img VARCHAR(200),
-    created_at TIMESTAMP DEFOULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 );
 
-CREATE TABLE drinkFlavor(
-    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    drink_id INT(11) NOT NULL,
-    name VARCHAR(30),
-    description VARCHAR(255),
-    img VARCHAR(200),
-    created_at TIMESTAMP DEFOULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (drink_id) REFERENCES drink (id),
-);
-
-CREATE TABLE breackfest(
+CREATE TABLE type_FD(
     id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(30),
-    description VARCHAR(255),
-    img VARCHAR(200),
-    created_at TIMESTAMP DEFOULT CURRENT_TIMESTAMP,
-);
-
-CREATE TABLE lunch(
-    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(30),
-    description VARCHAR(255),
-    img VARCHAR(200),
-    created_at TIMESTAMP DEFOULT CURRENT_TIMESTAMP,
-);
-
-CREATE TABLE dessert(
-    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(30),
-    description VARCHAR(255),
-    img VARCHAR(200),
-    created_at TIMESTAMP DEFOULT CURRENT_TIMESTAMP,
+    price INT(11),
+    ingredients VARCHAR(255),
+    img VARCHAR(255),
+    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 );
 
 CREATE TABLE detailOrder(
     id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    drink_id INT(11),
-    breackfest_id INT(11),
-    lunch_id INT(11),
-    dessert_id INT(11),
-    FOREIGN KEY (drink_id) REFERENCES drinkFlavor(id),
-    FOREIGN KEY (breackfest_id) REFERENCES breackfest(id),
-    FOREIGN KEY (lunch_id) REFERENCES lunch(id),
-    FOREIGN KEY (dessert_id) REFERENCES dessert(id),
-
+    order_id NOT NULL,
+    fd_id INT(11),
+    amount INT(11),
+    precio INT(11),
+    FOREIGN KEY (fd_id) REFERENCES FD(id),
+    FOREIGN KEY (order_id) REFERENCES order(id),
 );
 
 CREATE TABLE order(
     id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     detail_id INT(11) NOT NULL,
-    FOREIGN KEY (detail_id) REFERENCES detailOrder (id)
+    name varchar(30),
+    note varchar(255)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 );
